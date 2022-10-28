@@ -1,8 +1,9 @@
-import { Contract, providers, utils } from "ethers";
+import { Contract, ethers, providers, utils } from "ethers";
 import Head from "next/head";
+import { kill } from "process";
 import React, { useEffect, useRef, useState } from "react";
 import Web3Modal from "web3modal";
-import { abi, NFT_CONTRACT_ADDRESS } from "../constants";
+import { abi, NFT_CONTRACT_ADDRESS } from "../constants/index2";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -159,6 +160,14 @@ export default function Home() {
       // We connect to the Contract using a Provider, so we will only
       // have read-only access to the Contract
       const nftContract = new Contract(NFT_CONTRACT_ADDRESS, abi, provider);
+      // We will get the signer now to extract the address of the currently connected MetaMask account
+      const signer = await getProviderOrSigner(true);
+      // Get the address associated to the signer which is connected to  MetaMask
+      // const address = await signer.getAddress();
+      // console.log(address)
+      // nftContract.getTokens(address).then((result) => {
+      //   console.log(result)
+      // })
       // call the presaleEnded from the contract
       const _presaleEnded = await nftContract.presaleEnded();
       // _presaleEnded is a Big Number, so we are using the lt(less than function) instead of `<`
@@ -218,6 +227,9 @@ export default function Home() {
       const _tokenIds = await nftContract.tokenIds();
       //_tokenIds is a `Big Number`. We need to convert the Big Number to a string
       setTokenIdsMinted(_tokenIds.toString());
+      // const a = nftContract.getTokens()
+      // console.log(a)
+      // const a = nftContract.maxTokenIds;
     } catch (err) {
       console.error(err);
     }
@@ -243,9 +255,11 @@ export default function Home() {
 
     // If user is not connected to the Rinkeby network, let them know and throw an error
     const { chainId } = await web3Provider.getNetwork();
-    if (chainId !== 4) {
-      window.alert("Change the network to Rinkeby");
-      throw new Error("Change network to Rinkeby");
+    // 1337 // 本地
+    // 5 // goerli
+    if (chainId !== 1337) {
+      window.alert("Change the network to Gorerli");
+      throw new Error("Change network to Gorerli");
     }
 
     if (needSigner) {
@@ -264,7 +278,7 @@ export default function Home() {
       // Assign the Web3Modal class to the reference object by setting it's `current` value
       // The `current` value is persisted throughout as long as this page is open
       web3ModalRef.current = new Web3Modal({
-        network: "rinkeby",
+        network: "goerli",
         providerOptions: {},
         disableInjectedProvider: false,
       });
