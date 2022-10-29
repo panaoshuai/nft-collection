@@ -257,7 +257,7 @@ export default function Home() {
     const { chainId } = await web3Provider.getNetwork();
     // 1337 // 本地
     // 5 // goerli
-    if (chainId !== 1337) {
+    if (chainId !== 5) {
       window.alert("Change the network to Gorerli");
       throw new Error("Change network to Gorerli");
     }
