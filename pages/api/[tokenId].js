@@ -23,15 +23,15 @@ export default function handler(req, res) {
         },
         {
           "trait_type": "REWARDPOOL-01",
-          "value": "60%"
+          "value": "60 pct"
         },
         {
           "trait_type": "REWARDPOOL-02",
-          "value": "30%"
+          "value": "30 pct"
         },
         {
           "trait_type": "REWARDPOOL-03",
-          "value": "10%"
+          "value": "10 pct"
         },
       ]
     });
