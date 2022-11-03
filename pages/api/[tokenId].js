@@ -11,7 +11,8 @@ export default function handler(req, res) {
       "id": tokenId,
       name: "Texas Pass #" + tokenId, // Texas Pass #1
       // description: "Crypto Dev is a collection of developers in crypto", // 描述
-      image: image_url + 1 + ".webm", // 
+      // image: image_url + 1 + ".webm", // 
+      animation_url:image_url + 1 + ".webm", // 
       attributes: [
         {
           "trait_type": "PROPERTY",
